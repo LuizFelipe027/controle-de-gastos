@@ -1,36 +1,54 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# dependencies
+# Dependency directories
 node_modules/
 
-# Expo
-.expo/
+# Build output
+build/
 dist/
-web-build/
-expo-env.d.ts
 
-# Native
-*.orig.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
+# Temporary files
+*.tmp
+*.cache
 
-# Metro
-.metro-health-check*
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
 
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# macOS
+# macOS files
 .DS_Store
-*.pem
 
-# local env files
-.env*.local
+# Windows files
+Thumbs.db
+desktop.ini
 
-# typescript
+# Other system files
+*.lock
+package-lock.json
+
+# Coverage directory used by testing tools
+coverage/
+
+# Storybook files
+.storybook/
+out/
+
+# ESLint cache
+.eslintcache
+
+# TypeScript build artifacts
 *.tsbuildinfo
