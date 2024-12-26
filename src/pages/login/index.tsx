@@ -1,20 +1,19 @@
 import React from "react";
 import {
   Text,
-  TextInput,
   View,
-  TouchableOpacity,
   Alert,
-  ActivityIndicator,
 } from "react-native";
 import { styles } from "./styles";
-import { MaterialIcons } from "@expo/vector-icons";
-import { themas } from "../../global/themes";
+import { MaterialIcons, Octicons } from "@expo/vector-icons";
+import { Input } from "../../components/Input";
+import { Button } from "../../components/Button";
 
 export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(true);
 
   async function getLogin() {
     try {
@@ -40,39 +39,26 @@ export default function Login() {
       </View>
 
       <View style={styles.boxMid}>
-        <Text style={styles.titleInput}> Endereço de Email </Text>
-        <View style={styles.boxInput}>
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-          />
-          <MaterialIcons name="email" size={20} color={themas.colors.gray} />
-        </View>
-
-        <Text style={styles.titleInput}> Senha </Text>
-        <View style={styles.boxInput}>
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={setPassword}
-          />
-          <MaterialIcons
-            name="remove-red-eye"
-            size={20}
-            color={themas.colors.gray}
-          />
-        </View>
+        <Input
+          value={email}
+          onChangeText={setEmail}
+          title="Email"
+          IconRight={MaterialIcons}
+          iconRightName="email"
+        />
+        <Input
+          value={password}
+          onChangeText={setPassword}
+          title="Senha"
+          IconRight={Octicons}
+          iconRightName={showPassword ? "eye-closed" : "eye"}
+          secureTextEntry={showPassword}
+          onIconRightPress={() => setShowPassword(!showPassword)}
+        />
       </View>
 
       <View style={styles.boxBottom}>
-        <TouchableOpacity style={styles.button} onPress={getLogin}>
-          {loading ? (
-            <ActivityIndicator color={themas.colors.secondary} size={'small'}/>
-          ) : (
-            <Text style={styles.textButton}> Entrar </Text>
-          )}
-        </TouchableOpacity>
+        <Button text="Entrar" loading={loading} onPress={getLogin} />
       </View>
 
       <Text style={styles.textBottom}>Não tem conta? Cadastre-se!</Text>
