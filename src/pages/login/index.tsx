@@ -1,17 +1,16 @@
 import React from "react";
-import {
-  Text,
-  View,
-  Alert,
-} from "react-native";
+import { Text, View, Alert } from "react-native";
 import { styles } from "./styles";
 import { MaterialIcons, Octicons } from "@expo/vector-icons";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 export default function Login() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const navigation = useNavigation<NavigationProp<any>>();
+
+  const [email, setEmail] = React.useState("a");
+  const [password, setPassword] = React.useState("a");
   const [loading, setLoading] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(true);
 
@@ -22,6 +21,8 @@ export default function Login() {
       if (!email || !password) {
         return Alert.alert("Atenção", "Preencha todos os campos");
       }
+
+      navigation.reset({ routes: [{ name: "BottomRoutes" }] });
 
       console.log("email: ", email);
       console.log("password: ", password);
