@@ -1,14 +1,16 @@
-import React, { forwardRef, Fragment, LegacyRef } from "react";
+import React, { forwardRef, LegacyRef } from "react";
 import {
-  View,
-  Text,
   TextInput,
+  View,
   TextInputProps,
+  Text,
   TouchableOpacity,
+  StyleProp,
+  TextStyle,
 } from "react-native";
-import { styles } from "./styles";
-import { themas } from "../../global/themes";
 import { MaterialIcons, FontAwesome, Octicons } from "@expo/vector-icons";
+import { themas } from "../../global/themes";
+import { styles } from "./styles";
 
 type IconComponent =
   | React.ComponentType<React.ComponentProps<typeof MaterialIcons>>
@@ -17,31 +19,35 @@ type IconComponent =
 
 type Props = TextInputProps & {
   IconLeft?: IconComponent;
-  IconRight?: IconComponent;
+  IconRigth?: IconComponent;
   iconLeftName?: string;
   iconRightName?: string;
   title?: string;
   onIconLeftPress?: () => void;
-  onIconRightPress?: () => void;
+  onIconRigthPress?: () => void;
+  height?: number;
+  labelStyle?: StyleProp<TextStyle>;
 };
 
 export const Input = forwardRef(
-  (Props: Props, ref: LegacyRef<TextInput> | null) => {
+  (props: Props, ref: LegacyRef<TextInput> | null) => {
     const {
       IconLeft,
-      IconRight,
+      IconRigth,
       iconLeftName,
       iconRightName,
       title,
       onIconLeftPress,
-      onIconRightPress,
+      onIconRigthPress,
+      height,
+      labelStyle,
       ...rest
-    } = Props;
+    } = props;
 
     const calculateSizeWidth = () => {
-      if (IconLeft && IconRight) {
+      if (IconLeft && IconRigth) {
         return "80%";
-      } else if (IconLeft || IconRight) {
+      } else if (IconLeft || IconRigth) {
         return "90%";
       } else {
         return "100%";
@@ -49,9 +55,9 @@ export const Input = forwardRef(
     };
 
     const calculateSizePaddingLeft = () => {
-      if (IconLeft && IconRight) {
+      if (IconLeft && IconRigth) {
         return 0;
-      } else if (IconLeft || IconRight) {
+      } else if (IconLeft || IconRigth) {
         return 10;
       } else {
         return 20;
@@ -59,10 +65,16 @@ export const Input = forwardRef(
     };
 
     return (
-      <Fragment>
-        {title && <Text style={styles.titleInput}>{title}</Text>}
+      <>
+        {title && <Text style={[styles.titleInput, labelStyle]}>{title}</Text>}
         <View
-          style={[styles.boxInput, { paddingLeft: calculateSizePaddingLeft() }]}
+          style={[
+            styles.boxInput,
+            {
+              paddingLeft: calculateSizePaddingLeft(),
+              height: height ? height : 40,
+            },
+          ]}
         >
           {IconLeft && iconLeftName && (
             <TouchableOpacity onPress={onIconLeftPress} style={styles.button}>
@@ -74,15 +86,18 @@ export const Input = forwardRef(
               />
             </TouchableOpacity>
           )}
-
           <TextInput
-            style={[styles.input, { width: calculateSizeWidth() }]}
+            style={[
+              styles.input,
+              { width: calculateSizeWidth(), height: "100%" },
+            ]}
+            ref={ref}
+            multiline
             {...rest}
           />
-
-          {IconRight && iconRightName && (
-            <TouchableOpacity onPress={onIconRightPress} style={styles.button}>
-              <IconRight
+          {IconRigth && iconRightName && (
+            <TouchableOpacity onPress={onIconRigthPress} style={styles.button}>
+              <IconRigth
                 name={iconRightName as any}
                 size={20}
                 color={themas.colors.gray}
@@ -91,7 +106,7 @@ export const Input = forwardRef(
             </TouchableOpacity>
           )}
         </View>
-      </Fragment>
+      </>
     );
   }
 );
