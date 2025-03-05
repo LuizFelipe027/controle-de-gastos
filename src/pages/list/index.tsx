@@ -6,7 +6,13 @@ import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { Flag } from "../../components/Flag";
 import { themas } from "../../global/themes";
 import { AuthContextList } from "../../context/authContext_list";
-import { Text, View, StatusBar, FlatList } from "react-native";
+import {
+  Text,
+  View,
+  StatusBar,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { formatDateToBR } from "../../global/functions";
 
@@ -38,8 +44,19 @@ export default function List() {
   };
 
   const _renderCard = (item: PropCard, index: number) => {
-    const color =
-      item.flag == "opcional" ? themas.colors.blueLigth : themas.colors.red;
+    let color = "";
+    switch (item.flag) {
+      case "fixo":
+        color = themas.colors.blueLigth;
+        break;
+      case "parcelado":
+        color = themas.colors.red;
+        break;
+      case "receita":
+        color = themas.colors.green;
+        break;
+    }
+
     return (
       <Swipeable
         ref={(ref) => (swipeableRefs.current[index] = ref)}
@@ -51,16 +68,21 @@ export default function List() {
         <View style={styles.card}>
           <View style={styles.rowCard}>
             <View style={styles.rowCardLeft}>
-              <Ball color={color} />
+              <TouchableOpacity onPress={() => handleEdit(item)}>
+                <View
+                  style={[
+                    styles.ball,
+                    { borderColor: color ? color : "gray" },
+                    { backgroundColor: item.accounted ? color : "transparent" },
+                  ]}
+                />
+              </TouchableOpacity>
               <View>
-                <Text style={styles.titleCard}>{item.title}</Text>
-                <Text style={styles.descriptionCard}>{item.description}</Text>
-                <Text style={styles.descriptionCard}>
-                  até {formatDateToBR(item.timeLimit)}
-                </Text>
+                <Text style={styles.titleCard}>{item.description}</Text>
+                <Text style={styles.descriptionCard}>{item.valueRecord}</Text>
               </View>
             </View>
-            <Flag caption={item.flag} color={color} />
+            <Flag title={item.flag} code={item.flag} color={color} />
           </View>
         </View>
       </Swipeable>
@@ -79,6 +101,7 @@ export default function List() {
             IconLeft={MaterialIcons}
             iconLeftName="search"
             onChangeText={(t) => filter(t)}
+            keyboardType="default"
           />
         </View>
       </View>

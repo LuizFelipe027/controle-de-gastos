@@ -70,5 +70,10 @@ export const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
     },
-
+    ball: {
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        borderWidth: 1,
+      },
 })

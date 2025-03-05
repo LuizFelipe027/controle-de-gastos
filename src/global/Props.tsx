@@ -7,11 +7,11 @@ interface AuthContextType {
   filter: (t: string) => void;
 }
 type PropCard = {
+  valueRecord: string;
+  accounted: boolean;
   description: string;
   flag: PropFlags;
   item: number;
-  timeLimit: string;
-  title: string;
 };
 
-type PropFlags = "urgente" | "opcional";
+type PropFlags = "fixo" | "parcelado" | "receita";

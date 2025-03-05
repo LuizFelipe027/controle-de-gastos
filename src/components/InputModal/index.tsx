@@ -1,4 +1,4 @@
-import React, { forwardRef, LegacyRef } from "react";
+import React, { forwardRef, LegacyRef,  useState } from "react";
 import {
   TextInput,
   View,
@@ -28,9 +28,10 @@ type Props = TextInputProps & {
   height?: number;
   labelStyle?: StyleProp<TextStyle>;
   keyboardType?: string;
+  placeholder?: string;
 };
 
-export const Input = forwardRef(
+export const InputModal = forwardRef(
   (props: Props, ref: LegacyRef<TextInput> | null) => {
     const {
       IconLeft,
@@ -87,7 +88,8 @@ export const Input = forwardRef(
               />
             </TouchableOpacity>
           )}
-          <TextInput
+          {rest.keyboardType === "numeric" && (
+            <TextInput
             style={[
               styles.input,
               { width: calculateSizeWidth(), height: "100%" },
@@ -95,8 +97,26 @@ export const Input = forwardRef(
             ref={ref}
             multiline
             {...rest}
-            keyboardType={rest.keyboardType ? rest.keyboardType : "default"}
+            keyboardType="numeric"
+            placeholderTextColor={themas.colors.gray}
+            placeholder={rest.placeholder}
           />
+          )}
+          {rest.keyboardType !== "numeric" && (
+            <TextInput
+            style={[
+              styles.input,
+              { width: calculateSizeWidth(), height: "100%" },
+            ]}
+            ref={ref}
+            multiline
+            {...rest}
+            keyboardType={rest.keyboardType}
+            placeholderTextColor={themas.colors.gray}
+            placeholder={rest.placeholder}
+          />
+          )}
+          
           {IconRigth && iconRightName && (
             <TouchableOpacity onPress={onIconRigthPress} style={styles.button}>
               <IconRigth

@@ -43,15 +43,16 @@ export default function Login() {
       </View>
       <View style={styles.boxMid}>
         <Input
-          title="ENDEREÇO E-MAIL"
+          title="Endereço de e-mail"
           value={email}
           onChangeText={setEmail}
           IconRigth={MaterialIcons}
           iconRightName="email"
           onIconRigthPress={() => console.log("OLA")}
+          keyboardType="email-address"
         />
         <Input
-          title="SENHA"
+          title="Senha"
           value={password}
           onChangeText={setPassword}
           IconRigth={Octicons}
@@ -59,6 +60,7 @@ export default function Login() {
           onIconRigthPress={() => setShowPassword(!showPassword)}
           secureTextEntry={true}
           multiline={false}
+          keyboardType="default"
         />
       </View>
       <View style={styles.boxBottom}>

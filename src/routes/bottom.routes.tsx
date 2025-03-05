@@ -1,4 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Division from '../pages/division';
+import Total from '../pages/total';
 import List from '../pages/list';
 import User from '../pages/user';
 import CustomTabBar from '../components/customTabBar';
@@ -13,8 +15,16 @@ export default function BottomRoutes() {
         tabBar={props=><CustomTabBar{ ...props}/>}
       >
         <Tab.Screen 
+          name="Division" 
+          component={Division} 
+        />
+        <Tab.Screen 
           name="List" 
           component={List} 
+        />
+        <Tab.Screen 
+          name="Total" 
+          component={Total} 
         />
         <Tab.Screen 
           name="User"

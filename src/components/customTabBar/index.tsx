@@ -20,11 +20,33 @@ export default ({ state, navigation }) => {
 
   return (
     <View style={styles.tabArea}>
-      <TouchableOpacity style={styles.tabItem} onPress={() => go("List")}>
+      <TouchableOpacity style={styles.tabItem} onPress={() => go("Division")}>
         <AntDesign
           name="bars"
           style={{
             opacity: state.index === 0 ? 1 : 0.2,
+            color: themas.colors.primary,
+            fontSize: 32,
+          }}
+        />
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.tabItem} onPress={() => go("List")}>
+        <AntDesign
+          name="bars"
+          style={{
+            opacity: state.index === 1 ? 1 : 0.2,
+            color: themas.colors.primary,
+            fontSize: 32,
+          }}
+        />
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.tabItem} onPress={() => go("Total")}>
+        <AntDesign
+          name="bars"
+          style={{
+            opacity: state.index === 2 ? 1 : 0.2,
             color: themas.colors.primary,
             fontSize: 32,
           }}
@@ -50,7 +72,7 @@ export default ({ state, navigation }) => {
 
       <TouchableOpacity style={styles.tabItem} onPress={() => go("User")}>
         <FontAwesome name="user" style={{
-            opacity: state.index === 1 ? 1 : 0.2,
+            opacity: state.index === 3 ? 1 : 0.2,
             color: themas.colors.primary,
             fontSize: 32,
           }} />

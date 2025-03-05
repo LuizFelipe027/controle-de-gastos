@@ -10,7 +10,8 @@ export const styles = StyleSheet.create({
         backgroundColor: themas.colors.red,
         borderRadius: 4
     },
-    caption: {
-        color: '#FFF'
+    code: {
+        color: '#FFF',
+        fontWeight: 'bold'
     }
 })
